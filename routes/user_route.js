@@ -102,7 +102,7 @@ router.post('/users/logoutAll', auth, async (req, res) => {
 const appPassword = process.env.GOOGLE_APP_PASSWORD 
 
 // Email verification route
-router.post('/user/emailVerification', async (req, res) => {
+router.post('/users/emailVerification', async (req, res) => {
     const { email } = req.body;
 
     try {
