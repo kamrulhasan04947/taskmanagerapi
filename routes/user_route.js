@@ -9,13 +9,12 @@ router.post('/users/register', async (req, res) => {
     const user = new User(req.body);
     try {
         await user.save();
-        res.status(201).json({
-            status: "created",
-            message: 'Request successful',
-            data: {user}
+        res.status(200).json({
+            status: "ok",
+            message: 'registration successful',
+            data: user
         }); 
     } catch (e) {
-        console.error('Error:', e);
         res.status(400).send(e);
     }
 });
@@ -25,7 +24,12 @@ router.post('/users/login', async (req, res) => {
     try {
         const user = await User.findByCredentials(req.body.email, req.body.password);
         const token = await user.generateAuthToken();
-        res.send({ user, token });
+        res.status(200).json({
+            status: "ok",
+            msg: "Login successful",
+            user: user,
+            token: token
+        })
     } catch (e) {
         res.status(400).send({ error: 'Unable to login' });
     }
